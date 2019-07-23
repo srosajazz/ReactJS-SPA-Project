@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+
 import api from '../../services/api';
 
-import { Form, SubmitButton, List } from './styles';
-
 import Container from '../../components/Container';
+import { Form, SubmitButton, List } from './styles';
 
 export default class Main extends Component {
   state = {
@@ -14,7 +14,7 @@ export default class Main extends Component {
     loading: false,
   };
 
-  // upload data from localstorage
+  // Carregar os dados do localStorage
   componentDidMount() {
     const repositories = localStorage.getItem('repositories');
 
@@ -23,11 +23,11 @@ export default class Main extends Component {
     }
   }
 
-  // Save data from localstorage
+  // Salvar os dados do localStorage
   componentDidUpdate(_, prevState) {
     const { repositories } = this.state;
 
-    if (prevState.repository !== repositories) {
+    if (prevState.repositories !== repositories) {
       localStorage.setItem('repositories', JSON.stringify(repositories));
     }
   }
@@ -63,12 +63,13 @@ export default class Main extends Component {
       <Container>
         <h1>
           <FaGithubAlt />
-          Repository
+          Repositórios
         </h1>
+
         <Form onSubmit={this.handleSubmit}>
           <input
             type="text"
-            placeholder="Add repository"
+            placeholder="Adicionar repositório"
             value={newRepo}
             onChange={this.handleInputChange}
           />
@@ -87,7 +88,7 @@ export default class Main extends Component {
             <li key={repository.name}>
               <span>{repository.name}</span>
               <Link to={`/repository/${encodeURIComponent(repository.name)}`}>
-                Details
+                Detalhes
               </Link>
             </li>
           ))}
